@@ -96,6 +96,7 @@
 const BOOK_MIN = 3;
 const BOOK_MAX = 137;
 const STORAGE_KEY = 'pictorialReview_v1';
+const CACHE_BUST = Date.now(); // review must always show current vectors, never cached ones
 
 let byPage = {};
 let state = { reviews: {} };
@@ -198,7 +199,7 @@ function renderPage(n) {
       card.className = 'card';
       card.dataset.id = icon.id;
       card.innerHTML = '<span class="flagtag"></span>' +
-        '<div class="thumb"><img src="' + icon.file + '" loading="lazy" alt="' + icon.name + '"></div>' +
+        '<div class="thumb"><img src="' + icon.file + '?v=' + CACHE_BUST + '" loading="lazy" alt="' + icon.name + '"></div>' +
         '<div class="label' + (icon.guess ? ' guess' : '') + '">' + icon.name + (icon.guess ? ' *' : '') + '</div>' +
         '<div class="correction"><input type="text" class="corrbox" placeholder="Correct name…"></div>';
       const currentFlag = review.flags[icon.id];
@@ -287,7 +288,7 @@ document.getElementById('importInput').addEventListener('change', (e) => {
 });
 
 loadState();
-fetch('index.csv').then(r => r.text()).then(text => {
+fetch('index.csv?v=' + CACHE_BUST).then(r => r.text()).then(text => {
   parseCsv(text);
   renderPage(currentPage);
 });
