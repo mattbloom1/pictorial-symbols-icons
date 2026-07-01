@@ -49,6 +49,9 @@
   .card.reject .label { text-decoration: line-through; color: #c02b2b; }
   .card.misnamed { border-color: #b15c00; }
   .card.misnamed .flagtag { display: inline-block; background: #b15c00; color: #fff; }
+  .card .correction { display: none; margin-top: 6px; }
+  .card.misnamed .correction { display: block; }
+  .card .correction input { width: 100%; font-size: 11px; padding: 4px 6px; border: 1px solid #b15c00; border-radius: 4px; box-sizing: border-box; }
   .empty-state { padding: 30px; text-align: center; color: #888; background: #fff; border: 1px dashed #ccc; border-radius: 8px; margin-top: 10px; }
   .hint { font-size: 12px; color: #888; margin-top: 4px; }
   #importInput { display: none; }
@@ -84,7 +87,7 @@
     <button id="stMissing" class="missing" type="button">&#10007; Not processed</button>
   </div>
   <textarea id="notes" placeholder="Notes for this page: rejects, missing symbols, misnamed icons, anything else worth flagging…"></textarea>
-  <div class="hint">Click an icon below to flag it: first click = reject, second click = misnamed, third click = clear.</div>
+  <div class="hint">Click an icon below to flag it: first click = reject, second click = misnamed, third click = clear. When misnamed, type the correct name in the box that appears under it.</div>
   <div id="grid" class="grid"></div>
   <div id="emptyState" class="empty-state" style="display:none">No icons were extracted for this page.</div>
 </main>
@@ -113,7 +116,8 @@ function saveState() {
 }
 
 function getReview(key) {
-  if (!state.reviews[key]) state.reviews[key] = { status: 'unreviewed', notes: '', flags: {} };
+  if (!state.reviews[key]) state.reviews[key] = { status: 'unreviewed', notes: '', flags: {}, corrections: {} };
+  if (!state.reviews[key].corrections) state.reviews[key].corrections = {};
   return state.reviews[key];
 }
 
@@ -195,10 +199,19 @@ function renderPage(n) {
       card.dataset.id = icon.id;
       card.innerHTML = '<span class="flagtag"></span>' +
         '<div class="thumb"><img src="' + icon.file + '" loading="lazy" alt="' + icon.name + '"></div>' +
-        '<div class="label' + (icon.guess ? ' guess' : '') + '">' + icon.name + (icon.guess ? ' *' : '') + '</div>';
+        '<div class="label' + (icon.guess ? ' guess' : '') + '">' + icon.name + (icon.guess ? ' *' : '') + '</div>' +
+        '<div class="correction"><input type="text" class="corrbox" placeholder="Correct name…"></div>';
       const currentFlag = review.flags[icon.id];
       if (currentFlag) setCardFlagClass(card, currentFlag);
-      card.addEventListener('click', () => {
+      const corrInput = card.querySelector('.corrbox');
+      corrInput.value = review.corrections[icon.id] || '';
+      corrInput.addEventListener('click', (e) => e.stopPropagation());
+      corrInput.addEventListener('input', (e) => {
+        review.corrections[icon.id] = e.target.value;
+        saveState();
+      });
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.correction')) return;
         const cur = review.flags[icon.id];
         const next = cur === undefined ? 'reject' : cur === 'reject' ? 'misnamed' : undefined;
         if (next === undefined) delete review.flags[icon.id]; else review.flags[icon.id] = next;
