@@ -63,64 +63,6 @@
   </div>
 </header>
 <main>
-  
-<section class="notes">
-  <h2>Process notes (1615 of the book's stated 3,250 examples)</h2>
-
-  <h3>Where did the other ~1635 go?</h3>
-  <p>The book's cover states "3,250 examples from international sources" — that number counts every printed
-  <em>occurrence</em>, not every distinct design. A large part of the book (pp.55&ndash;94, "Arranged by System") shows
-  the same handful of pictograms &mdash; phone, mail, parking, restrooms, baggage, etc. &mdash; repeated once per airport
-  or transit authority, each with its own small agency code underneath. This library keeps one example per visually
-  distinct design, per an earlier decision, not one per occurrence. That single choice accounts for most of the gap:</p>
-  <ul>
-    <li><strong>1051 occurrences</strong> were dropped on the 109 pages that <em>were</em> run
-      through the pipeline (2666 raw crops &rarr; 1615 kept) &mdash; almost all are
-      repeat occurrences of a design already kept, plus ordinary page furniture (captions, rule-line fragments).</li>
-    <li><strong>~350&ndash;400 more occurrences</strong> live on pp.75&ndash;90 and 94
-      (17 pages), which were never extracted at all because a manual page-by-page check confirmed they are full
-      duplicate-appendix repeats of the same "Arranged by System" pattern (plus inverted black-on-white reprints of
-      symbols already captured) &mdash; zero new designs.</li>
-    <li>The remainder sits on the still-unprocessed pages below &mdash; those <em>do</em> plausibly hold genuinely new,
-      not-yet-captured designs (see next section).</li>
-  </ul>
-
-  <h3>Pages that still need attention</h3>
-  <ul>
-    <li><code>SCAN0046</code> &mdash; needs an actual rescan. No image exists for this page in either the raw or
-      cleaned scan folders.</li>
-    <li><code>SCAN0034, SCAN0035, SCAN0036, SCAN0038, SCAN0042, SCAN0045</code> &mdash; scans exist but need
-      red separator lines drawn (or manual cropping). These are <strong>Part One</strong> (general pictorial symbols)
-      pages with irregular layouts &mdash; buildings, factories, outline icons &mdash; that the automatic line-free
-      extractor under-segments. Unlike the pp.75&ndash;94 duplicates above, these are <strong>not</strong> recap
-      pages, so they likely contain real designs not captured anywhere else in this library. The same red-line markup
-      process used for pages 3&ndash;31 (draw a red grid between icons + an outer border in Illustrator, export as
-      <code>_CROPLINES.jpg</code>) would let these be extracted cleanly.</li>
-    <li><code>SCAN0107</code> and <code>SCAN0111</code> were also missing a cleaned-scan pass, but their raw scans
-      turned out perfectly usable &mdash; both were extracted directly from the raw folder this session
-      (48 icons added), so <strong>no rescan was actually needed</strong> for those two.</li>
-    <li><code>SCAN0054</code> is a section-divider page (no icons, correctly skipped) and <code>SCAN0010</code> is a
-      raw duplicate of a page already captured under its red-lined counterpart (also correctly excluded).</li>
-  </ul>
-
-  <h3>Other notes</h3>
-  <ul>
-    <li><span class="tag">143 icons</span> carry only a best-guess name (marked with a trailing
-      <code>*</code> in the grid below) &mdash; the book labels several sections only by category header, not per
-      icon, so these were named from context rather than a printed label. Worth a manual skim.</li>
-    <li>White-on-black "negative" printings of a symbol were kept as separate assets from their black-on-white
-      counterpart (e.g. <code>taxi.svg</code> vs <code>taxi-negative.svg</code>) rather than merged, per an earlier
-      decision to treat color-inverted reprints as distinct.</li>
-    <li>A few individual icons could not be auto-extracted on pages that were otherwise fully processed, and were
-      quietly dropped rather than block the page: the gray-on-white "Parking" sign (SCAN0134, too low-contrast to
-      threshold), the "Poison" hazard diamond (SCAN0136), and the "Stratus" / "Cumulus fractus" weather-chart line
-      glyphs (SCAN0136, near-zero-height symbols). Flagging in case you want them added by hand.</li>
-    <li>Full integrity report: <code>work/verify_integrity_report.txt</code>. Re-run
-      <code>python scripts/verify_integrity.py &amp;&amp; python scripts/build_library_html.py</code> after any future
-      batch to refresh both the report and this page.</li>
-  </ul>
-</section>
-
   <div id="grid" class="grid"></div>
   <div id="empty" class="empty" style="display:none">No icons match.</div>
 </main>
