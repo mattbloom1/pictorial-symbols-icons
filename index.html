@@ -12,6 +12,9 @@
   input[type=search] { flex: 1; min-width: 220px; padding: 8px 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 6px; }
   select { padding: 8px 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 6px; }
   #count { font-size: 13px; color: #555; white-space: nowrap; }
+  .icon-btn { padding: 8px 12px; font-size: 13px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; white-space: nowrap; }
+  .icon-btn:hover { background: #f3f3f4; }
+  .icon-btn.active { background: #1b1b1f; color: #fff; border-color: #1b1b1f; }
   main { padding: 16px 20px 60px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
   .card { background: #fff; border: 1px solid #e2e2e4; border-radius: 8px; padding: 10px; text-align: center; }
@@ -60,6 +63,8 @@
     <input id="search" type="search" placeholder="Search by name…" autocomplete="off">
     <select id="category"><option value="">All categories</option></select>
     <span id="count"></span>
+    <button id="randomBtn" class="icon-btn" type="button">&#127922; Random</button>
+    <button id="starredFilterBtn" class="icon-btn" type="button">&#9733; Starred only</button>
   </div>
 </header>
 <main>
@@ -86,6 +91,8 @@ const empty = document.getElementById('empty');
 const search = document.getElementById('search');
 const category = document.getElementById('category');
 const count = document.getElementById('count');
+const randomBtn = document.getElementById('randomBtn');
+const starredFilterBtn = document.getElementById('starredFilterBtn');
 
 const cats = [...new Set(ITEMS.map(i => i.category))].sort();
 for (const c of cats) {
@@ -97,13 +104,16 @@ for (const c of cats) {
 // Starred icons: in-memory only for this page view, intentionally NOT persisted
 // (no localStorage) — resets on reload, which is what was asked for.
 const starred = new Set();
+let starredOnly = false;
+let visibleItems = [];
 
 function render() {
   const q = search.value.trim().toLowerCase();
   const cat = category.value;
   const filtered = ITEMS.filter(i =>
-    (!q || i.name.includes(q)) && (!cat || i.category === cat)
+    (!q || i.name.includes(q)) && (!cat || i.category === cat) && (!starredOnly || starred.has(i.file))
   );
+  visibleItems = filtered;
   grid.innerHTML = '';
   const frag = document.createDocumentFragment();
   for (const i of filtered) {
@@ -167,8 +177,12 @@ lbStar.addEventListener('click', () => {
   if (starred.has(current.file)) starred.delete(current.file);
   else starred.add(current.file);
   updateStarButton();
-  const card = grid.querySelector(`.card[data-file="${CSS.escape(current.file)}"]`);
-  if (card) card.classList.toggle('starred', starred.has(current.file));
+  if (starredOnly) {
+    render();
+  } else {
+    const card = grid.querySelector(`.card[data-file="${CSS.escape(current.file)}"]`);
+    if (card) card.classList.toggle('starred', starred.has(current.file));
+  }
 });
 
 document.getElementById('lb-close').addEventListener('click', closeLightbox);
@@ -177,6 +191,18 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay
 
 search.addEventListener('input', render);
 category.addEventListener('change', render);
+
+starredFilterBtn.addEventListener('click', () => {
+  starredOnly = !starredOnly;
+  starredFilterBtn.classList.toggle('active', starredOnly);
+  render();
+});
+
+randomBtn.addEventListener('click', () => {
+  if (!visibleItems.length) return;
+  openLightbox(visibleItems[Math.floor(Math.random() * visibleItems.length)]);
+});
+
 render();
 </script>
 </body>
