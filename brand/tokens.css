@@ -1,15 +1,15 @@
 /* GENERATED from brand/DESIGN.md by brand/build.mjs. Do not edit. */
 :root {
   color-scheme: dark;
-  --color-background: #050404;
-  --color-cream: #efefef;
-  --color-surface-sunk: #171515;
+  --color-background: #131212;
+  --color-cream: #F0EADA;
+  --color-surface-sunk: #1e1a1a;
   --color-surface: #2A2826;
-  --color-surface-raised: #33312A;
+  --color-surface-raised: #1e1d1a;
   --color-surface-khaki: #403F2D;
   --color-border: #45423C;
-  --color-border-strong: #6F7667;
-  --color-border-hover: #8A9280;
+  --color-border-strong: #787e70;
+  --color-border-hover: #99a090;
   --color-text: #F0EADA;
   --color-text-muted: #B8C1AE;
   --color-text-faint: #9AA390;
@@ -98,7 +98,7 @@
   --shadow-raised: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
   --shadow-overlay: 0 24px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-focus: 0 0 0 2px #050404, 0 0 0 4px #B8C1AE;
+  --shadow-focus: 0 0 0 2px #131212, 0 0 0 4px #B8C1AE;
   --motion-duration-fast: 120ms;
   --motion-duration-base: 200ms;
   --motion-duration-slow: 320ms;
