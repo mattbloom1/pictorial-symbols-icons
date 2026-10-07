@@ -5,6 +5,17 @@ A browsable, searchable SVG library of pictogram icons digitized from a printed 
 **Live viewer:** open `index.html` (or the GitHub Pages URL for this repo) — search by name, filter by category,
 click any icon for a larger preview, download, or star it for the session.
 
+## Design system
+
+The site is styled entirely from the shared brand tokens (`DESIGN.md` in [mattbloom1/Brand](https://github.com/mattbloom1/Brand)).
+
+- `brand/tokens.css`: a copy of the generated tokens. Do not edit it by hand.
+- `brand/fonts.css` and `brand/fonts/`: the brand fonts, self-hosted.
+- `brand/site.css`: the page styles. They contain no colours or sizes, only token references.
+- `brand/update-brand.bat`: pulls the newest tokens from the Brand repo and pushes them.
+
+Icons are black on transparent, so each is shown on a cream plate (`--color-cream`), like the printed page.
+
 ## Source & attribution
 
 These icons are hand-digitized (scan → crop → vector trace → name) from:
