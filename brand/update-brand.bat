@@ -1,6 +1,7 @@
 @echo off
 rem Pulls the latest brand tokens from the Brand repo into this site and pushes them,
 rem so GitHub Pages republishes with the new look.
+rem Exit codes: 0 pushed, 2 already up to date, 1 failed.
 setlocal
 cd /d "%~dp0.."
 
@@ -23,7 +24,7 @@ git add brand\tokens.css
 git diff --cached --quiet
 if not errorlevel 1 (
   echo Brand was already up to date.
-  exit /b 0
+  exit /b 2
 )
 git commit -m "Update brand tokens"
 if errorlevel 1 goto :fail
