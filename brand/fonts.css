@@ -1,0 +1,5 @@
+/* Self-hosted brand fonts (GitHub Pages is static). Family names match brand/tokens.css. */
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/instrument-serif-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/instrument-serif-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans Variable'; font-style: normal; font-weight: 100 1000; font-display: swap; src: url('fonts/dm-sans-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/dm-mono-latin-400-normal.woff2') format('woff2'); }
