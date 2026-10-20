@@ -1,4 +1,4 @@
-/* GENERATED from brand/DESIGN.md by brand/build.mjs. Do not edit. */
+/* Brand colour, type and shape tokens. Edit by hand to change the look. */
 :root {
   color-scheme: dark;
   --color-background: #131212;
