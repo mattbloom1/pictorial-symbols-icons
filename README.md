@@ -7,12 +7,11 @@ click any icon for a larger preview, download, or star it for the session.
 
 ## Design system
 
-The site is styled entirely from the shared brand tokens (`DESIGN.md` in [mattbloom1/Brand](https://github.com/mattbloom1/Brand)).
+The site is styled entirely from the brand tokens kept in this repo.
 
-- `brand/tokens.css`: a copy of the generated tokens. Do not edit it by hand.
+- `brand/tokens.css`: the colour, type and shape tokens. Edit it by hand to change the look.
 - `brand/fonts.css` and `brand/fonts/`: the brand fonts, self-hosted.
 - `brand/site.css`: the page styles. They contain no colours or sizes, only token references.
-- `brand/update-brand.bat`: pulls the newest tokens from the Brand repo and pushes them.
 
 Icons are black on transparent, so each is shown on a cream plate (`--color-cream`), like the printed page.
 
